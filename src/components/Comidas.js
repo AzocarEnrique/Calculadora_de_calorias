@@ -6,7 +6,7 @@ const Comidas = () => {
   return (
       <View style = {{paddingTop: 10}}>
           <TouchableOpacity style={styles.button} onPress={() => {
-              navigation.navigate("Perfil")
+              console.log("descripcion comida")
           }}>
               <Text style = {{color: "white"}}>Comida</Text>
           </TouchableOpacity>

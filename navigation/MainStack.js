@@ -2,7 +2,7 @@ import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
 import Home from "../src/screens/Home";
-import Perfil from "../src/screens/Perfil";
+import NuevaComida from "../src/screens/NuevaComida";
 
 const Stack = createNativeStackNavigator()
 
@@ -16,12 +16,12 @@ const MainStack = () => {
         <NavigationContainer theme={navTheme}>
             <Stack.Navigator>
                 <Stack.Screen 
-                    name="Home"
+                    name="Inicio"
                     component={ Home }
                 />
                 <Stack.Screen 
-                    name="Perfil"
-                    component={ Perfil }
+                    name="Nueva Comida"
+                    component={ NuevaComida }
                 />
             </Stack.Navigator>
         </NavigationContainer>
