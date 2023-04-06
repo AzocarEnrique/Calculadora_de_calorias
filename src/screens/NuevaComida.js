@@ -1,59 +1,106 @@
-import React from 'react';
-import {Text, StyleSheet, View, TextInput, TouchableOpacity} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {Text, StyleSheet, View, TextInput, TouchableOpacity, Alert} from 'react-native';
 import { Feather } from '@expo/vector-icons';
 
-
 const NuevaComida = ({ navigation }) => {
+
+  const [nombre, setNombre] = useState('')
+  const [calorias, setCalorias] = useState(0)
+  const [proteinas, setProteinas] = useState(0)
+  const [carbohidratos, setCarbohidratos] = useState(0)
+  const [grasas, setGrasas] = useState(0)
+
+  const guardarComida = () =>{
+    if(!nombre || !calorias || !proteinas || !carbohidratos || !grasas){
+      Alert.alert('Datos vacios', 'Faltan casillas por rellenar', [
+        {text: 'OK'},
+      ]);
+    }
+    if(typeof calorias != 'number' || typeof proteinas != 'number' || typeof carbohidratos != 'number' || typeof grasas != 'number'){
+      Alert.alert('Datos erroneos', 'Existen casillas con datos que no corresponden', [
+        {text: 'OK'},
+      ]);
+    }
+    else{
+      console.log("ta todo bien")
+    }
+  }
+
   return ( 
     <View style={{margin:20, alignItems:'center', paddingTop:"5%" }}>
+      <View style={{paddingBottom:"5%"}}>
+        <Text style={styles.titulo}>
+          Detalles Generales:
+        </Text>
+      </View>
       <View style={{flexDirection:"row",alignItems: 'center'}}>
         <Text style={styles.texto}> Nombre: </Text>
         <TextInput style={styles.inputTexto}
+        onChangeText={(ev)=> {setNombre(ev)}}
         placeholder="Nueva comida"
         placeholderTextColor="#fff" />
       </View>
       <View style={{flexDirection:"row",alignItems:'center'}}>
-        <Text style={styles.texto}>
-          Calorias:
-        </Text>
+        <Text style={styles.texto}> Calorias: </Text>
         <TextInput style={styles.inputTexto}
-          secureTextEntry={true}
+          keyboardType='numeric'
+          onChangeText={(ev)=> {
+            if(!isNaN(ev)){
+              setCalorias(parseInt(ev))
+            };
+            }}
           placeholder="Kcal"
           placeholderTextColor="#fff"
-        />
+          />
       </View>
-      <View style={{paddingTop: "20%"}}>
-        <Text style={styles.texto}>
+      <View style={{paddingTop: "10%", paddingBottom: "5%"}}>
+        <Text style={styles.titulo}>
           Macro-Calorias:
         </Text>
       </View>
-      
-        <TextInput style={styles.inputTexto}
-          secureTextEntry={true}
-          placeholder="Proteina"
-          placeholderTextColor="#fff"
-        />
-        <TextInput style={styles.inputTexto}
-          secureTextEntry={true}
-          placeholder="Carbohidratos"
-          placeholderTextColor="#fff"
-        />
-        <TextInput style={styles.inputTexto}
-          secureTextEntry={true}
-          placeholder="Grasas"
-          placeholderTextColor="#fff"
-        />
-        <TouchableOpacity style={styles.boton} onPress={() => {console.log("xd")}}><Text style={{fontSize:16}}> Send <Feather name="send" size={18} color="black" /></Text></TouchableOpacity>
+      <TextInput style={styles.inputTexto}    
+        keyboardType='numeric'
+        onChangeText={(ev)=> {
+          if(!isNaN(ev)){
+          setProteinas(parseInt(ev))
+        };
+        }}        
+        placeholder="Gramos de Proteinas"
+        placeholderTextColor="#fff"
+      />
+      <TextInput style={styles.inputTexto}
+        keyboardType='numeric'
+        onChangeText={(ev)=> {
+          if(!isNaN(ev)){
+          setCarbohidratos(parseInt(ev))
+        };
+        }}
+        placeholder="Gramos de Carbohidratos"
+        placeholderTextColor="#fff"
+      />
+      <TextInput style={styles.inputTexto}
+        keyboardType='numeric'
+        onChangeText={(ev)=> {
+          if(!isNaN(ev)){
+          setGrasas(parseInt(ev))
+        };
+        }}
+        placeholder="Gramos de Grasas"
+        placeholderTextColor="#fff"
+      />
+      <View style={{paddingTop: "7%"}}>
+      </View>
+      <TouchableOpacity style={styles.boton} onPress={() => {guardarComida()}}>
+        <Text style={{fontSize:16, color:"white"}}> Guardar <Feather name="save" size={18} color="white" /></Text>
+      </TouchableOpacity>
     </View>
-
   );
 };
 const styles = StyleSheet.create({
   boton:{
-    paddingTop: "1%",
-    marginTop:10,
-    width: "30%",
-    height: "7%",
+    paddingTop: "3%",
+    width: "35%",
+    height: "8%",
     borderRadius: 10,
     backgroundColor: 'skyblue',
     alignItems: "center",
@@ -64,14 +111,19 @@ const styles = StyleSheet.create({
     color: "white",
     textAlign: 'center'
   },
+  titulo: {
+    fontSize: 26,
+    color: "white",
+    textAlign: 'center'
+  },
   inputTexto: {
     borderWidth: 2,
     borderColor: "skyblue",
-    margin: 20,
+    margin: 15,
     color: "#fff",
     borderRadius: 10,
     paddingLeft: 10,
-    width: '40%'
+    width: '50%'
   }
 });
 
