@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { TouchableOpacity, Button, TextInput, View, StyleSheet, Text, Alert } from 'react-native';
 import { Entypo } from '@expo/vector-icons'
-import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword} from 'firebase/auth'
-import { InitialApp, initializeApp } from 'firebase/app';
+import {getAuth, signInWithEmailAndPassword} from 'firebase/auth'
+import {  initializeApp } from 'firebase/app';
 import { firebaseConfig } from './../../firebase-config';
 
 const Login = ({ navigation }) => {
@@ -15,7 +15,7 @@ const Login = ({ navigation }) => {
       signInWithEmailAndPassword(auth, correo.correo, contraseña.contraseña).then((userCredential)=>{
           const user = userCredential.user;
           console.log(user);
-          navigation.navigate("Inicio", {'user': user.accessToken})
+          navigation.navigate("Inicio")
       }).catch(error =>{
         Alert.alert('Error', error.message);
       })

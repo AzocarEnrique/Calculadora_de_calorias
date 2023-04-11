@@ -14,7 +14,7 @@ const SignUp = ({ navigation }) => {
         createUserWithEmailAndPassword(auth, correo.correo, contraseña.contraseña).then((userCredential)=>{
             const user = userCredential.user;
             console.log(user);
-            navigation.navigate("Inicio", {'user': user.accessToken})  
+            navigation.navigate("Inicio")  
         }).catch(error =>{
             Alert.alert('Error', error.message);
         })
