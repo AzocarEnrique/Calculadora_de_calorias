@@ -1,15 +1,13 @@
 import React from 'react';
-import {StyleSheet, TouchableOpacity, Text, View } from 'react-native';
-
-
+import {StyleSheet, View } from 'react-native';
+import Comida from './Comida';
+import { readFile } from '../resources/functions';
 const Comidas = () => {
+  const lista = readFile('calorias.json');
+  console.log(lista)
   return (
       <View style = {{paddingTop: 10}}>
-          <TouchableOpacity style={styles.button} onPress={() => {
-              console.log("descripcion comida")
-          }}>
-              <Text style = {{color: "white"}}>Comida</Text>
-          </TouchableOpacity>
+          <Comida {...lista}/>
       </View>
   );
 }

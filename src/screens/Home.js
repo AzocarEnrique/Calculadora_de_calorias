@@ -2,7 +2,13 @@ import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import Comidas from '../components/Comidas';
 
-const Home = ({ navigation }) => {
+const Home = ({ navigation, route }) => {
+  const user = route.params
+  if(!user){
+    navigation.navigate("Iniciar Sesión")
+  }
+  console.log(user)
+
   return (
       <View>
           <Comidas/>

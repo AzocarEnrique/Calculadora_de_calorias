@@ -4,7 +4,6 @@ import { Feather } from '@expo/vector-icons';
 import {writeFile, readFile} from './../resources/functions'
 
 const NuevaComida = ({ navigation }) => {
-
   const [nombre, setNombre] = useState('')
   const [calorias, setCalorias] = useState(0)
   const [proteinas, setProteinas] = useState(0)

@@ -3,6 +3,8 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
 import Home from "../src/screens/Home";
 import NuevaComida from "../src/screens/NuevaComida";
+import Login from "../src/screens/Login";
+import SignUp from "../src/screens/SignUp";
 
 const Stack = createNativeStackNavigator()
 
@@ -18,6 +20,14 @@ const MainStack = () => {
                 <Stack.Screen 
                     name="Inicio"
                     component={ Home }
+                />
+                <Stack.Screen 
+                    name="Iniciar Sesión"
+                    component={ Login }
+                />
+                <Stack.Screen 
+                    name="Crear Cuenta"
+                    component={ SignUp }
                 />
                 <Stack.Screen 
                     name="Nueva Comida"

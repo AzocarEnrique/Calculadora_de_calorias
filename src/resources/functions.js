@@ -16,7 +16,6 @@ export async function readFile(ruta) {
     const fileUri = `${FileSystem.documentDirectory+ruta}`;
     try {
         const content = await FileSystem.readAsStringAsync(fileUri);
-        console.log(content);
     } catch (error) {
         console.error(error);
     }
