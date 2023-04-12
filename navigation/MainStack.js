@@ -6,6 +6,7 @@ import NuevaComida from "../src/screens/NuevaComida";
 import Login from "../src/screens/Login";
 import SignUp from "../src/screens/SignUp";
 import Calculadora from "../src/screens/Calculadora";
+import Limite from "../src/screens/Limite";
 
 const Stack = createNativeStackNavigator()
 
@@ -37,6 +38,10 @@ const MainStack = () => {
                 <Stack.Screen 
                     name="Calculadora"
                     component={ Calculadora }
+                />
+                <Stack.Screen 
+                    name="Límite"
+                    component={ Limite }
                 />
             </Stack.Navigator>
         </NavigationContainer>

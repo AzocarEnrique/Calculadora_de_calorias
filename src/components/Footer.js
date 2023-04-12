@@ -16,6 +16,11 @@ const Footer = () => {
         }}>
             <Text style = {{color: "white"}}>Calculadora</Text>
         </TouchableOpacity>      
+        <TouchableOpacity style={styles.button} onPress={() => {
+            navigation.navigate("Límite")
+        }}>
+            <Text style = {{color: "white"}}>Límite Calorico</Text>
+        </TouchableOpacity>   
     </View>
   );
 }
@@ -23,7 +28,7 @@ const Footer = () => {
 const styles = StyleSheet.create({
   button: {
     height: 60,
-    width: '50%',
+    width: '33.34%',
     backgroundColor: '#313338',
     padding: 10,
     borderLeftColor: 'white',
