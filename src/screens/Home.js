@@ -18,6 +18,7 @@ const Home = ({ navigation }) => {
   })
 
   return (
+    <View style={{flex:1}}>
       <ScrollView>
           <Button
             title={'Logout'}
@@ -36,22 +37,22 @@ const Home = ({ navigation }) => {
             style={styles.roundButton1}>
             <Text style={styles.texto}>+</Text>
           </TouchableOpacity>
-          <Footer/>
       </ScrollView>
+      <Footer/>
+    </View>   
   );
 }
 
 const styles = StyleSheet.create({
   roundButton1: {
-      marginTop: '84%',
-      marginLeft: '75%',
+      marginTop: '90%',
+      marginLeft: '78%',
       width: 75,
       height: 75,
       justifyContent: 'center',
       alignItems: 'center',
       borderRadius: 100,
       backgroundColor: 'tomato',
-      marginBottom:'10%'
   },
   texto: {
     fontSize: 35,

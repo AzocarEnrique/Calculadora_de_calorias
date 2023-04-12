@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 const Footer = () => {
   const navigation = useNavigation();
   return (  
-    <View style={{flexDirection: 'row', height:'100%'}}>
+    <View style={{flexDirection: 'row'}}>
         <TouchableOpacity style={[styles.button, {borderLeftWidth: 0}]} onPress={() => {
             navigation.navigate("Inicio")
         }}>
