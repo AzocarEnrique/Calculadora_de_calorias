@@ -1,7 +1,6 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {Text, StyleSheet, View, TextInput, TouchableOpacity, Alert} from 'react-native';
 import { Feather } from '@expo/vector-icons';
-import {writeFile, readFile} from './../resources/functions'
 
 const NuevaComida = ({ navigation }) => {
   const [nombre, setNombre] = useState('')
@@ -29,9 +28,6 @@ const NuevaComida = ({ navigation }) => {
       "proteinas": proteinas,
       "grasas": grasas
       }
-      const data = JSON.stringify(comidaJSON)
-
-      writeFile('calorias.json', data)
       navigation.navigate("Inicio")
       }
     }

@@ -1,9 +1,10 @@
 import React from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, Button, Alert } from 'react-native';
+import {ScrollView, Text, StyleSheet, TouchableOpacity, Button, Alert, View } from 'react-native';
 import Comidas from '../components/Comidas';
 import {getAuth} from 'firebase/auth'
 import { initializeApp } from 'firebase/app';
 import { firebaseConfig } from '../../firebase-config';
+import Footer from '../components/Footer';
 
 const Home = ({ navigation }) => {
   const app = initializeApp(firebaseConfig)
@@ -17,7 +18,7 @@ const Home = ({ navigation }) => {
   })
 
   return (
-      <View>
+      <ScrollView>
           <Button
             title={'Logout'}
             style={styles.input}
@@ -35,13 +36,14 @@ const Home = ({ navigation }) => {
             style={styles.roundButton1}>
             <Text style={styles.texto}>+</Text>
           </TouchableOpacity>
-      </View>
+          <Footer/>
+      </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   roundButton1: {
-      marginTop: '100%',
+      marginTop: '84%',
       marginLeft: '75%',
       width: 75,
       height: 75,
@@ -49,6 +51,7 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       borderRadius: 100,
       backgroundColor: 'tomato',
+      marginBottom:'10%'
   },
   texto: {
     fontSize: 35,
