@@ -1,19 +1,56 @@
 import React, { useState } from 'react';
 import { Button, TextInput, View, StyleSheet, Text, Alert } from 'react-native';
-import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword} from 'firebase/auth'
+import {getAuth, createUserWithEmailAndPassword} from 'firebase/auth'
 import { initializeApp } from 'firebase/app';
 import { firebaseConfig } from './../../firebase-config';
+import { getFirestore, collection, addDoc } from "firebase/firestore";
+
+const AgregarUsuario = async (db, user_id) =>{
+  try {
+    const Usuarios = collection(db, user_id);
+    await Promise.all([
+      addDoc(collection(Usuarios, 'comidas', 'Pera'), {
+          calorias: 58,
+          proteinas: 0.38,
+          carbohidratos: 15.46,
+          grasas: 0.12
+      }),
+      addDoc(collection(Usuarios, 'comidas', 'Tomate'), {
+          calorias: 18,
+          proteinas: 0.88,
+          carbohidratos: 3.92,
+          grasas: 0.2
+      }),
+      addDoc(collection(Usuarios, 'comidas', 'Manzana'), {
+          calorias: 52,
+          proteinas: 0.26,
+          carbohidratos: 13.81,
+          grasas: 0.17
+      }),
+      //addDoc(collection(Usuarios, 'calculadora', 'registro'), {
+      //name: 'Legion of Honor',
+      //    type: 'museum'
+      //}),
+    ]);
+    console.log("Documento escrito con ID: ", Usuarios.id);
+  } catch (e) {
+    console.error("Error agregando el documento: ", e);
+  }
+} 
 
 const SignUp = ({ navigation }) => {
     const [correo, setCorreo] = useState('')
     const [contraseña, setContraseña] = useState('')
     const app = initializeApp(firebaseConfig)
     const auth = getAuth(app)
+    const db = getFirestore(app);
 
-    const handleCreateAccount = () =>{
+
+    const  handleCreateAccount = () =>{
         createUserWithEmailAndPassword(auth, correo.correo, contraseña.contraseña).then((userCredential)=>{
             const user = userCredential.user;
             console.log(user);
+            AgregarUsuario(db, user.uid)
             navigation.navigate("Inicio")  
         }).catch(error =>{
             Alert.alert('Error', error.message);
