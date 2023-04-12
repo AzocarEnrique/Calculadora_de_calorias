@@ -19,18 +19,19 @@ const Home = ({ navigation }) => {
 
   return (
     <View style={{flex:1}}>
-      <ScrollView>
-          <Button
-            title={'Logout'}
-            style={styles.input}
-            onPress={()=>{
+      <View style={{flexDirection: 'row', justifyContent:'space-between'}}>
+        <Text style={{color:'white', fontSize:26, fontWeight:'bold', paddingLeft:'23%', marginTop:7}}>Lista de alimentos</Text>
+        <TouchableOpacity style={styles.button} onPress={() => {
               auth.signOut().then(() => {
                 console.log("se deslogueo");
               }).catch(error =>{
                 Alert.alert('Error', error.message);
               });
-            }}
-          />
+          }}>
+              <Text style = {{color: "white"}}>Logout</Text>
+        </TouchableOpacity>  
+      </View>
+      <ScrollView>
           <Comidas/>
           <TouchableOpacity
             onPress={() => {navigation.navigate("Nueva Comida")}}
@@ -58,15 +59,18 @@ const styles = StyleSheet.create({
     fontSize: 35,
     color: "white"
   },
-  input: {
-    width: 200,
-    height: 44,
+  button: {
+    marginTop:5,
+    marginRight:5,
+    backgroundColor: '#6D6D6C',
+    borderColor:'#313833',
     padding: 10,
-    borderWidth: 1,
-    borderColor: 'black',
-    marginBottom: 10,
     borderRadius: 5,
-    backgroundColor: '#FFFFFF'
-  },
+    borderWidth:1,
+    borderRightWidth: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    textAlignVertical: 'center',
+  }
 });
 export default Home

@@ -1,6 +1,6 @@
 import { SafeAreaView } from 'react-native-safe-area-context';
 import MainStack from './navigation/MainStack';
-import {StyleSheet} from 'react-native';
+import {StyleSheet } from 'react-native';
 import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword} from 'firebase/auth'
 import { InitialApp } from 'firebase/app';
 import { firebaseConfig } from './firebase-config';
