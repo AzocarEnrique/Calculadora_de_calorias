@@ -1,22 +1,23 @@
 import React from 'react';
-import {ScrollView, Text, StyleSheet, TouchableOpacity, Button, Alert, View } from 'react-native';
+import {ScrollView, Text, TouchableOpacity, Alert, View } from 'react-native';
 import Comidas from '../components/Comidas';
-import {getAuth} from 'firebase/auth'
-import { initializeApp } from 'firebase/app';
-import { firebaseConfig } from '../../firebase-config';
+import { db, auth } from './../../firebase-config';
 import Footer from '../components/Footer';
+import { styles } from '../resources/styles';
+
+
+//console.log(getData(db, auth.currentUser.uid))
 
 const Home = ({ navigation }) => {
-  const app = initializeApp(firebaseConfig)
-  const auth = getAuth(app)
-  
 
   auth.onAuthStateChanged((user) =>{
     if(!user){
       navigation.navigate("Iniciar Sesión")
     } 
+    else{
+      //console.log(getData(db, user))
+    }
   })
-
   return (
     <View style={{flex:1}}>
       <View style={{flexDirection: 'row', justifyContent:'space-between'}}>
@@ -33,44 +34,15 @@ const Home = ({ navigation }) => {
       </View>
       <ScrollView>
           <Comidas/>
-          <TouchableOpacity
-            onPress={() => {navigation.navigate("Nueva Comida")}}
-            style={styles.roundButton1}>
-            <Text style={styles.texto}>+</Text>
-          </TouchableOpacity>
       </ScrollView>
+      <TouchableOpacity
+        onPress={() => {navigation.navigate("Nueva Comida")}}
+        style={styles.roundButton1}>
+        <Text style={styles.texto}>+</Text>
+      </TouchableOpacity>
       <Footer/>
     </View>   
   );
 }
 
-const styles = StyleSheet.create({
-  roundButton1: {
-      marginTop: '90%',
-      marginLeft: '78%',
-      width: 75,
-      height: 75,
-      justifyContent: 'center',
-      alignItems: 'center',
-      borderRadius: 100,
-      backgroundColor: 'tomato',
-  },
-  texto: {
-    fontSize: 35,
-    color: "white"
-  },
-  button: {
-    marginTop:5,
-    marginRight:5,
-    backgroundColor: '#6D6D6C',
-    borderColor:'#313833',
-    padding: 10,
-    borderRadius: 5,
-    borderWidth:1,
-    borderRightWidth: 0,
-    alignItems: 'center',
-    justifyContent: 'center',
-    textAlignVertical: 'center',
-  }
-});
 export default Home

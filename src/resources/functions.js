@@ -1,22 +1,71 @@
-import * as FileSystem from 'expo-file-system';
+import { collection, query, getDocs } from "firebase/firestore";
+import { db, auth } from './../../firebase-config';
 
-export async function writeFile(ruta, data) {
-    const fileUri = `${FileSystem.documentDirectory+ruta}`;
-    console.log(fileUri)
+export const AgregarUsuario = async (db, user_id) => {
     try {
-        const content = await FileSystem.readAsStringAsync(fileUri);
-        await FileSystem.writeAsStringAsync(fileUri, content+','+data);
-        await readFile('calorias.json')
-    } catch (error) {
-        console.error(error);
+        const Usuarios = collection(db, user_id);
+        await Promise.all([
+            addDoc(collection(Usuarios, 'comidas', 'Pera'), {
+                calorias: 58,
+                proteinas: 0.38,
+                carbohidratos: 15.46,
+                grasas: 0.12
+            }),
+            addDoc(collection(Usuarios, 'comidas', 'Tomate'), {
+                calorias: 18,
+                proteinas: 0.88,
+                carbohidratos: 3.92,
+                grasas: 0.2
+            }),
+            addDoc(collection(Usuarios, 'comidas', 'Manzana'), {
+                calorias: 52,
+                proteinas: 0.26,
+                carbohidratos: 13.81,
+                grasas: 0.17
+            }),
+            //addDoc(collection(Usuarios, 'calculadora', 'registro'), {
+            //name: 'Legion of Honor',
+            //    type: 'museum'
+            //}),
+        ]);
+        console.log("Documento escrito con ID: ", Usuarios.id);
+    } catch (e) {
+        console.error("Error agregando el documento: ", e);
     }
 }
 
-export async function readFile(ruta) {
-    const fileUri = `${FileSystem.documentDirectory+ruta}`;
-    try {
-        const content = await FileSystem.readAsStringAsync(fileUri);
-    } catch (error) {
-        console.error(error);
+export const guardarComida = (nombre, calorias, proteinas, carbohidratos, grasas) => {
+    if (!nombre || !calorias || !proteinas || !carbohidratos || !grasas) {
+        Alert.alert('Datos vacios', 'Faltan casillas por rellenar', [
+            { text: 'OK' },
+        ]);
+    }
+    if (typeof calorias != 'number' || typeof proteinas != 'number' || typeof carbohidratos != 'number' || typeof grasas != 'number') {
+        Alert.alert('Datos erroneos', 'Existen casillas con datos que no corresponden', [
+            { text: 'OK' },
+        ]);
+    }
+    else {
+        const comidaJSON = {
+            "nombre": nombre,
+            "calorias": calorias,
+            "carbohidratos": carbohidratos,
+            "proteinas": proteinas,
+            "grasas": grasas
+        }
+        console.log(comidaJSON)
     }
 }
+
+
+
+export const getData = async () => {
+    let r = [];
+    const q =  query(collection(db,`${auth.currentUser.uid}/comidas/Manzana`));
+    const querySnapshot = await getDocs(q)
+    querySnapshot.forEach((doc) => {
+        r.push(doc.data())  
+    });
+    return r;
+}
+

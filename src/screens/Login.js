@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
-import { TouchableOpacity, Button, TextInput, View, StyleSheet, Text, Alert } from 'react-native';
+import { TouchableOpacity, Button, TextInput, View, Text, Alert } from 'react-native';
 import { Entypo } from '@expo/vector-icons'
-import {getAuth, signInWithEmailAndPassword} from 'firebase/auth'
-import {  initializeApp } from 'firebase/app';
-import { firebaseConfig } from './../../firebase-config';
+import { signInWithEmailAndPassword } from 'firebase/auth'
+import { auth } from './../../firebase-config';
+import { styles } from '../resources/styles';
 
 const Login = ({ navigation }) => {
     const [correo, setCorreo] = useState('')
     const [contraseña, setContraseña] = useState('')
-    const app = initializeApp(firebaseConfig)
-    const auth = getAuth(app)
 
     const handleLoginAccount = () =>{
       signInWithEmailAndPassword(auth, correo.correo, contraseña.contraseña).then((userCredential)=>{
@@ -22,7 +20,7 @@ const Login = ({ navigation }) => {
   }
     return (
       <View style={styles.container}>
-        <Text style={styles.text}>
+        <Text style={styles.textoLogin}>
             Calculadora de Calorias
         </Text>
         <TextInput
@@ -66,39 +64,5 @@ const Login = ({ navigation }) => {
       </View>
     );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#111418',
-  },
-  input: {
-    width: 200,
-    height: 44,
-    padding: 10,
-    borderWidth: 1,
-    borderColor: 'black',
-    marginBottom: 10,
-    borderRadius: 5,
-    backgroundColor: '#FFFFFF'
-  },
-  text:{
-    fontSize:28,
-    fontWeight: 'bold',
-    color: '#ffffff',
-    paddingBottom: 30
-  },
-  google: {
-    width: 100,
-    height: 44,
-    padding: 5,
-    borderWidth: 1,
-    borderColor: 'black',
-    borderRadius: 5,
-    backgroundColor: 'red'
-  }
-});
 
 export default Login

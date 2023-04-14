@@ -1,12 +1,13 @@
 import React from 'react';
-import {StyleSheet, TouchableOpacity, Text, ScrollView, View} from 'react-native';
+import { TouchableOpacity, Text, ScrollView, View} from 'react-native';
 import Footer from '../components/Footer';
+import { styles } from '../resources/styles';
 
 const Calculadora = ({navigation}) => {
   return (  
     <View style={{flex: 1}}>
       <ScrollView>
-          <TouchableOpacity style={styles.button} onPress={() => {
+          <TouchableOpacity style={styles.simpleButton} onPress={() => {
               navigation.navigate("Inicio")
           }}>
               <Text style = {{color: "white"}}>Inicio</Text>
@@ -16,13 +17,5 @@ const Calculadora = ({navigation}) => {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  button: {
-    alignItems: 'center',
-    backgroundColor: '#313338',
-    padding: 10,
-  }
-});
 
 export default Calculadora
