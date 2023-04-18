@@ -1,7 +1,7 @@
 import React from 'react';
 import {ScrollView, Text, TouchableOpacity, Alert, View } from 'react-native';
 import Comidas from '../components/Comidas';
-import { db, auth } from './../../firebase-config';
+import { auth } from './../../firebase-config';
 import Footer from '../components/Footer';
 import { styles } from '../resources/styles';
 

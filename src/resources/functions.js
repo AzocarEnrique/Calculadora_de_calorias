@@ -1,5 +1,6 @@
-import { collection, query, getDocs, doc, getDoc, listCollections, collectionGroup, addDoc } from "firebase/firestore";
+import { collection, query, addDoc, onSnapshot } from "firebase/firestore";
 import { db, auth } from './../../firebase-config';
+import { Alert } from 'react-native';
 
 export const AgregarUsuario = async (db, user_id) => {
     try {
@@ -38,45 +39,38 @@ export const AgregarUsuario = async (db, user_id) => {
 }
 
 export const guardarComida = (nombre, calorias, proteinas, carbohidratos, grasas) => {
+    console.log(typeof calorias, typeof proteinas, typeof carbohidratos, typeof grasas);
+    const Usuarios = collection(db, auth.currentUser.uid);
     if (!nombre || !calorias || !proteinas || !carbohidratos || !grasas) {
         Alert.alert('Datos vacios', 'Faltan casillas por rellenar', [
             { text: 'OK' },
         ]);
     }
-    if (typeof calorias != 'number' || typeof proteinas != 'number' || typeof carbohidratos != 'number' || typeof grasas != 'number') {
-        Alert.alert('Datos erroneos', 'Existen casillas con datos que no corresponden', [
-            { text: 'OK' },
-        ]);
-    }
     else {
-        const comidaJSON = {
-            "nombre": nombre,
-            "calorias": calorias,
-            "carbohidratos": carbohidratos,
-            "proteinas": proteinas,
-            "grasas": grasas
-        }
-        console.log(comidaJSON)
+        addDoc(collection(Usuarios, 'comidas', 'simple'), {
+            nombre: nombre,
+            calorias: calorias,
+            carbohidratos: carbohidratos,
+            proteinas: proteinas,
+            grasas: grasas
+        })
     }
 }
 
 
 
 export const getData = async () => {
-    let r = [];
     const q =  query(collection(db,`${auth.currentUser.uid}/comidas/simple`));
-    const querySnapshot = await getDocs(q)
-    querySnapshot.forEach((doc) => {
-        r.push(doc.data())  
-    });
-    return r;
-}
-
-const getDataNombre = async () => {
-    const q = doc(db, `${auth.currentUser.uid}/comidas`);
+    const data = await new Promise((resolve) => {
+        const r = [];
+        onSnapshot(q, (querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+            r.push(doc.data());
+          });
+          resolve(r);
+        });
+      });
     
-    //console.log(q.listCollections())
-    //collections.forEach(collection => {
-    //    console.log('Found subcollection with id:', collection);
-    //  });
-}
+    return data;
+}   
+
