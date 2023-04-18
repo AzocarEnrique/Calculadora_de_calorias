@@ -14,9 +14,6 @@ const Home = ({ navigation }) => {
     if(!user){
       navigation.navigate("Iniciar Sesión")
     } 
-    else{
-      //console.log(getData(db, user))
-    }
   })
   return (
     <View style={{flex:1}}>

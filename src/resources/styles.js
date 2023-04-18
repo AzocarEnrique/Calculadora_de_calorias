@@ -63,6 +63,7 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#313338',
         padding: 10,
+        marginBottom: 10
     },
     buttonFooter: {
         height: 60,
