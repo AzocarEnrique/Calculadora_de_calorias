@@ -3,24 +3,22 @@ import { TouchableOpacity, Text, View } from 'react-native';
 import { styles } from '../resources/styles';
 import { getData } from '../resources/functions';
 import { Octicons } from '@expo/vector-icons'; 
-
+import { useRoute } from '@react-navigation/native';
 
 
 const Comida = () => {
   const [arregloData, setArregloData] = useState(null);
-  //const [arregloDataCol, setArregloDataCol] = useState(null);
-
   useEffect(() => {
     const obtenerDatos = async () => {
       const datos = await getData();
       setArregloData(datos);
     };
     obtenerDatos();
-  }, []);
+  }, [useRoute().params]);
 
   return (
     <View style={{flex:1}}>
-      { arregloData && arregloData.map((element) => (
+      { arregloData && arregloData?.map((element) => (
         <TouchableOpacity key={element.id} style={[styles.simpleButton, {flexDirection: 'row', justifyContent:'space-between'}]} onPress={() => console.log(element.nombre)}>
           <View style={{ paddingLeft: '10%', position:'relative', bottom:'2.5%' }}>
           <Text style={{ color: "white", fontSize: 20 }}>Nombre: {element.nombre}</Text>

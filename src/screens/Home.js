@@ -6,9 +6,7 @@ import Footer from '../components/Footer';
 import { styles } from '../resources/styles';
 
 
-//console.log(getData(db, auth.currentUser.uid))
-
-const Home = ({ navigation }) => {
+const Home = ({ navigation, route }) => {
 
   auth.onAuthStateChanged((user) =>{
     if(!user){
@@ -18,8 +16,12 @@ const Home = ({ navigation }) => {
   return (
     <View style={{flex:1}}>
       <View style={{flexDirection: 'row', justifyContent:'space-between'}}>
-        <Text style={{color:'white', fontSize:26, fontWeight:'bold', paddingLeft:'23%', marginTop:7}}>Lista de alimentos</Text>
-        <TouchableOpacity style={styles.button} onPress={() => {
+        <View style={{paddingLeft:'22%', marginTop:7, paddingBottom:4}}>
+          <Text style={{color:'white', fontSize:26, fontWeight:'bold'}}>Lista de alimentos</Text>
+          <Text style={{color:'white', fontSize:12, textAlign:'center'}}>(Información nutricional en 100g.)</Text>
+        </View>
+        
+        <TouchableOpacity style={[styles.button, {marginBottom:4, marginTop:4}]} onPress={() => {
               auth.signOut().then(() => {
                 console.log("se deslogueo");
               }).catch(error =>{

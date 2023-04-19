@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { ScrollView, View } from 'react-native';
 import Comida from './Comida';
 import { auth } from './../../firebase-config';
-const Comidas = () => {
 
+
+const Comidas = () => {
+  
   const [userActivo, setUserActivo] = useState(false);
   useEffect(() => {
     const obtenerDatos = async () => {
@@ -18,6 +20,7 @@ const Comidas = () => {
     };
     obtenerDatos();
   }, []);
+
   if(userActivo == true){
     return (
         <ScrollView>

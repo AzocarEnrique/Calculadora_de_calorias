@@ -1,8 +1,10 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Text, View, TextInput, TouchableOpacity, ScrollView} from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { styles } from '../resources/styles';
 import { guardarComida} from '../resources/functions';
+
+let i = 0;
 
 const NuevaComida = ({ navigation }) => {
   const [nombre, setNombre] = useState('')
@@ -10,7 +12,11 @@ const NuevaComida = ({ navigation }) => {
   const [proteinas, setProteinas] = useState(0)
   const [carbohidratos, setCarbohidratos] = useState(0)
   const [grasas, setGrasas] = useState(0)
-  //console.log(calorias+": "+!isNaN(calorias)+", "+typeof(calorias))
+
+  const aumento = () =>{ 
+    i++;
+  }
+
   return ( 
     <ScrollView>
       <View style={{margin:20, alignItems:'center', paddingTop:"5%" }}>
@@ -21,16 +27,11 @@ const NuevaComida = ({ navigation }) => {
         </View>
         <View style={{flexDirection:"row",alignItems: 'center'}}>
           <Text style={styles.textoComida}> Nombre: </Text>
-          <TextInput style={styles.inputTexto}
-          onChangeText={(ev)=> {setNombre(ev)}}
-          placeholder="Nueva comida"
-          placeholderTextColor="#fff" />
+          <TextInput style={styles.inputTexto} onChangeText={(ev)=> {setNombre(ev)}} placeholder="Nueva comida" placeholderTextColor="#fff" />
         </View>
         <View style={{flexDirection:"row",alignItems:'center'}}>
           <Text style={styles.textoComida}> Calorias: </Text>
-          <TextInput style={styles.inputTexto}
-            keyboardType='numeric'
-            onChangeText={(ev)=> {
+          <TextInput style={styles.inputTexto} keyboardType='numeric' onChangeText={(ev)=> {
               if(!isNaN(ev)){
                 const ans1 = ev.match(/\./g) ? "true" : "false";
                 const ans2 = ev.match(/\,/g) ? "true" : "false";
@@ -51,9 +52,7 @@ const NuevaComida = ({ navigation }) => {
             Macro-Calorias:
           </Text>
         </View>
-        <TextInput style={styles.inputTexto}    
-          keyboardType='numeric'
-          onChangeText={(ev)=> {
+        <TextInput style={styles.inputTexto} keyboardType='numeric' onChangeText={(ev)=> {
             if(!isNaN(ev)){
                 const ans1 = ev.match(/\./g) ? "true" : "false";
                 const ans2 = ev.match(/\,/g) ? "true" : "false";
@@ -68,9 +67,7 @@ const NuevaComida = ({ navigation }) => {
           placeholder="Gramos de Proteinas"
           placeholderTextColor="#fff"
         />
-        <TextInput style={styles.inputTexto}
-          keyboardType='numeric'
-          onChangeText={(ev)=> {
+        <TextInput style={styles.inputTexto} keyboardType='numeric' onChangeText={(ev)=> {
             if(!isNaN(ev)){
                 const ans1 = ev.match(/\./g) ? "true" : "false";
                 const ans2 = ev.match(/\,/g) ? "true" : "false";
@@ -86,9 +83,7 @@ const NuevaComida = ({ navigation }) => {
           placeholder="Gramos de Carbohidratos"
           placeholderTextColor="#fff"
         />
-        <TextInput style={styles.inputTexto}
-          keyboardType='numeric'
-          onChangeText={(ev)=> {
+        <TextInput style={styles.inputTexto} keyboardType='numeric' onChangeText={(ev)=> {
             if(!isNaN(ev)){
                 const ans1 = ev.match(/\./g) ? "true" : "false";
                 const ans2 = ev.match(/\,/g) ? "true" : "false";
@@ -105,9 +100,10 @@ const NuevaComida = ({ navigation }) => {
         />
         <View style={{paddingTop: "7%"}}>
         </View>
-        <TouchableOpacity style={styles.botonComida} onPress={() => {
+        <TouchableOpacity style={styles.botonComida} onPress={async () => {
           guardarComida(nombre, calorias, proteinas, carbohidratos, grasas);
-          navigation.navigate("Inicio");
+          await aumento()
+          navigation.navigate("Inicio", {contador: i});
           }}>
           <Text style={{fontSize:16, color:"white"}}> Guardar <Feather name="save" size={18} color="white" /></Text>
         </TouchableOpacity>
