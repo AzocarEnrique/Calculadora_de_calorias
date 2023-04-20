@@ -7,6 +7,7 @@ import Login from "../src/screens/Login";
 import SignUp from "../src/screens/SignUp";
 import Calculadora from "../src/screens/Calculadora";
 import Limite from "../src/screens/Limite";
+import EditarAlimento from "../src/screens/EditarAlimento";
 
 const Stack = createNativeStackNavigator()
 
@@ -42,6 +43,10 @@ const MainStack = () => {
                 <Stack.Screen 
                     name="Límite"
                     component={ Limite }
+                />
+                <Stack.Screen 
+                    name="Editar Alimento"
+                    component={ EditarAlimento }
                 />
             </Stack.Navigator>
         </NavigationContainer>

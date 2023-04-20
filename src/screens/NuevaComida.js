@@ -1,8 +1,8 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {Text, View, TextInput, TouchableOpacity, ScrollView} from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { styles } from '../resources/styles';
-import { guardarComida} from '../resources/functions';
+import { guardarComida, numero} from '../resources/functions';
 
 let i = 0;
 
@@ -32,16 +32,7 @@ const NuevaComida = ({ navigation }) => {
         <View style={{flexDirection:"row",alignItems:'center'}}>
           <Text style={styles.textoComida}> Calorias: </Text>
           <TextInput style={styles.inputTexto} keyboardType='numeric' onChangeText={(ev)=> {
-              if(!isNaN(ev)){
-                const ans1 = ev.match(/\./g) ? "true" : "false";
-                const ans2 = ev.match(/\,/g) ? "true" : "false";
-                  if(ans1 == 'true' || ans2 == 'true' ){
-                    setCalorias(parseFloat(ev))
-                  }
-                  else{
-                    setCalorias(parseInt(ev))
-                  }       
-              }
+              setCalorias(numero(ev))
             }}
             placeholder="Kcal"
             placeholderTextColor="#fff"
@@ -53,47 +44,19 @@ const NuevaComida = ({ navigation }) => {
           </Text>
         </View>
         <TextInput style={styles.inputTexto} keyboardType='numeric' onChangeText={(ev)=> {
-            if(!isNaN(ev)){
-                const ans1 = ev.match(/\./g) ? "true" : "false";
-                const ans2 = ev.match(/\,/g) ? "true" : "false";
-                if(ans1 == 'true' || ans2 == 'true' ){
-                  setProteinas(parseFloat(ev))
-                }
-                else{
-                  setProteinas(parseInt(ev))
-                }                    
-            }
+            setProteinas(numero(ev))
           }}        
           placeholder="Gramos de Proteinas"
           placeholderTextColor="#fff"
         />
         <TextInput style={styles.inputTexto} keyboardType='numeric' onChangeText={(ev)=> {
-            if(!isNaN(ev)){
-                const ans1 = ev.match(/\./g) ? "true" : "false";
-                const ans2 = ev.match(/\,/g) ? "true" : "false";
-                if(ans1 == 'true' || ans2 == 'true' ){
-                  setCarbohidratos(parseFloat(ev))
-                }
-                else{
-                  setCarbohidratos(parseInt(ev)) 
-                }
-                    
-            }
+            setCarbohidratos(numero(ev))
           }}
           placeholder="Gramos de Carbohidratos"
           placeholderTextColor="#fff"
         />
         <TextInput style={styles.inputTexto} keyboardType='numeric' onChangeText={(ev)=> {
-            if(!isNaN(ev)){
-                const ans1 = ev.match(/\./g) ? "true" : "false";
-                const ans2 = ev.match(/\,/g) ? "true" : "false";
-                if(ans1 == 'true' || ans2 == 'true' ){
-                  setGrasas(parseFloat(ev))
-                }
-                else{
-                  setGrasas(parseInt(ev))
-                }       
-            }
+            setGrasas(numero(ev))
           }}
           placeholder="Gramos de Grasas"
           placeholderTextColor="#fff"
