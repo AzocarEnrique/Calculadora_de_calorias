@@ -23,7 +23,6 @@ const Comida = () => {
   return (
     <View style={{ flex: 1 }}>
       {arregloData && arregloData?.map((element) => (
-        //console.log(element),
         <TouchableOpacity key={element.nombre} style={[styles.simpleButton, { flexDirection: 'row', justifyContent: 'space-between' }]} 
         onPress={() => {
             navigation.navigate("Editar Alimento", 

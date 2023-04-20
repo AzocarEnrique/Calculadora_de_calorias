@@ -1,4 +1,4 @@
-import { collection, query, addDoc, onSnapshot, where, deleteDoc, doc, getDocs } from "firebase/firestore";
+import { collection, query, addDoc, onSnapshot, where, deleteDoc, doc, getDocs, updateDoc } from "firebase/firestore";
 import { db, auth } from './../../firebase-config';
 import { Alert } from 'react-native';
 
@@ -93,5 +93,18 @@ export const numero = (ev) =>{
       }
 }
 export const editData = async (nombre,calorias,carbohidratos,proteinas,grasas) =>{
-    console.log(nombre,calorias,carbohidratos,proteinas,grasas)
+    const q =  query(collection(db,`${auth.currentUser.uid}/comidas/simple`), where("nombre", "==", nombre));
+    const querySnapshot = await getDocs(q);
+    const data = await new Promise((resolve) => {
+        querySnapshot.forEach((doc) => {
+            resolve(doc.id);
+        });
+    })
+    const documento = doc(db, auth.currentUser.uid, "comidas", "simple", data)
+    await updateDoc(documento, {
+        "calorias": calorias,
+        "proteinas": proteinas,
+        "carbohidratos": carbohidratos,
+        "grasas": grasas
+    });
 }
