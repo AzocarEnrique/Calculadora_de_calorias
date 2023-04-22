@@ -36,7 +36,7 @@ export const AgregarUsuario = async (db, user_id) => {
 }
 
 export const guardarComida = (nombre, calorias, proteinas, carbohidratos, grasas) => {
-    
+
     const Usuarios = collection(db, auth.currentUser.uid);
     if (!nombre || !calorias || !proteinas || !carbohidratos || !grasas) {
         Alert.alert('Datos vacios', 'Faltan casillas por rellenar', [
@@ -55,37 +55,22 @@ export const guardarComida = (nombre, calorias, proteinas, carbohidratos, grasas
 }
 
 export const getData = async (ruta) => {
-    const q =  query(collection(db,`${auth.currentUser.uid}${ruta}`));
+    const q = query(collection(db, `${auth.currentUser.uid}${ruta}`));
     const data = await new Promise((resolve) => {
         const r = [];
         onSnapshot(q, (querySnapshot) => {
-          querySnapshot.forEach((doc) => {
-            r.push(doc.data());
-          });
-          resolve(r);
+            querySnapshot.forEach((doc) => {
+                r.push(doc.data());
+            });
+            resolve(r);
         });
-      });
-    
-    return data;
-}   
+    });
 
-export const copiagetData = async (ruta) => {
-    const q =  query(collection(db,`${auth.currentUser.uid}${ruta}`));
-    const data = await new Promise((resolve) => {
-        const r = [];
-        onSnapshot(q, (querySnapshot) => {
-          querySnapshot.forEach((doc) => {
-            r.push(doc.data());
-          });
-          resolve(r);
-        });
-      });
-    
     return data;
-}   
+}
 
 export const delData = async (nombre) => {
-    const q =  query(collection(db,`${auth.currentUser.uid}/comidas/simple`), where("nombre", "==", nombre));
+    const q = query(collection(db, `${auth.currentUser.uid}/comidas/simple`), where("nombre", "==", nombre));
     const querySnapshot = await getDocs(q);
     const data = await new Promise((resolve) => {
         querySnapshot.forEach((doc) => {
@@ -93,22 +78,22 @@ export const delData = async (nombre) => {
         });
     })
     await deleteDoc(doc(db, auth.currentUser.uid, "comidas", "simple", data));
-} 
+}
 
-export const numero = (ev) =>{
-    if(!isNaN(ev)){
+export const numero = (ev) => {
+    if (!isNaN(ev)) {
         const ans1 = ev.match(/\./g) ? "true" : "false";
         const ans2 = ev.match(/\,/g) ? "true" : "false";
-          if(ans1 == 'true' || ans2 == 'true' ){
+        if (ans1 == 'true' || ans2 == 'true') {
             return parseFloat(ev)
-          }
-          else{
+        }
+        else {
             return parseInt(ev)
-          }       
-      }
+        }
+    }
 }
-export const editData = async (nombre,calorias,carbohidratos,proteinas,grasas) =>{
-    const q =  query(collection(db,`${auth.currentUser.uid}/comidas/simple`), where("nombre", "==", nombre));
+export const editData = async (nombre, calorias, carbohidratos, proteinas, grasas) => {
+    const q = query(collection(db, `${auth.currentUser.uid}/comidas/simple`), where("nombre", "==", nombre));
     const querySnapshot = await getDocs(q);
     const data = await new Promise((resolve) => {
         querySnapshot.forEach((doc) => {
@@ -126,30 +111,30 @@ export const editData = async (nombre,calorias,carbohidratos,proteinas,grasas) =
 
 export const guardarCalData = async (nombre, numero) => {
     const Usuarios = collection(db, auth.currentUser.uid);
-    const q =  query(collection(Usuarios, 'calculadora', 'datos'), where("nombre", "==", nombre))
+    const q = query(collection(Usuarios, 'calculadora', 'datos'), where("nombre", "==", nombre))
     const querySnapshot = await getDocs(q);
     let data = undefined
-    if(!querySnapshot.empty){
+    if (!querySnapshot.empty) {
         data = await new Promise((resolve) => {
             querySnapshot.forEach((doc) => {
                 resolve(doc.id);
             });
         })
     }
-    if(data){
+    if (data) {
         const documento = doc(db, auth.currentUser.uid, 'calculadora', 'datos', data)
         const gramosAntiguos = await getDoc(documento)
         await updateDoc(documento, {
             "nombre": nombre,
-            "gramos": parseInt(numero)+parseInt(gramosAntiguos.data().gramos)
+            "gramos": parseInt(numero) + parseInt(gramosAntiguos.data().gramos)
         });
     }
-    else{
+    else {
         addDoc(collection(Usuarios, 'calculadora', 'datos'), {
             nombre: nombre,
             gramos: numero
         })
-    }  
+    }
 }
 
 
@@ -157,17 +142,31 @@ export const arraysAsincronos = async (arregloData, arregloTotal) => {
     //console.log(arregloTotal)
     const data = await new Promise((resolve) => {
         const arrayFiltrado = []
-        if(arregloData && arregloTotal){
-          arregloData.map((elemento)=>{
-            const calculado = arregloTotal.filter((element) => element.nombre === elemento.nombre)[0]
-            calculado.calorias = (calculado.calorias*elemento.gramos)/100;
-            calculado.carbohidratos = (calculado.carbohidratos*elemento.gramos)/100;
-            calculado.proteinas = (calculado.proteinas*elemento.gramos)/100;
-            calculado.grasas = (calculado.grasas*elemento.gramos)/100;
-            arrayFiltrado.push(calculado)
-          })
-          resolve(arrayFiltrado)
+        if (arregloData && arregloTotal) {
+            arregloData.map((elemento) => {
+                const calculado = arregloTotal.filter((element) => element.nombre === elemento.nombre)[0]
+                calculado.calorias = (calculado.calorias * elemento.gramos) / 100;
+                calculado.carbohidratos = (calculado.carbohidratos * elemento.gramos) / 100;
+                calculado.proteinas = (calculado.proteinas * elemento.gramos) / 100;
+                calculado.grasas = (calculado.grasas * elemento.gramos) / 100;
+                arrayFiltrado.push(calculado)
+            })
+            resolve(arrayFiltrado)
         }
     })
     return data
+}
+
+export const sumArrays = (arrays) => {
+    let sums = {};
+    for (let array of arrays) {
+        for (let [label, value] of Object.entries(array)) {
+            if (label in sums) {
+                sums[label] += value;
+            } else {
+                sums[label] = value;
+            }
+        }
+    }
+    return sums;
 }
