@@ -8,6 +8,7 @@ import SignUp from "../src/screens/SignUp";
 import Calculadora from "../src/screens/Calculadora";
 import Limite from "../src/screens/Limite";
 import EditarAlimento from "../src/screens/EditarAlimento";
+import ListaAlimentos from "../src/screens/ListaAlimentos";
 
 const Stack = createNativeStackNavigator()
 
@@ -47,6 +48,10 @@ const MainStack = () => {
                 <Stack.Screen 
                     name="Editar Alimento"
                     component={ EditarAlimento }
+                />
+                <Stack.Screen 
+                    name="Agregar Alimento"
+                    component={ ListaAlimentos }
                 />
             </Stack.Navigator>
         </NavigationContainer>

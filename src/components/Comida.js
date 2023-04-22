@@ -14,7 +14,7 @@ const Comida = () => {
   
   useEffect(() => {
     const obtenerDatos = async () => {
-      setArregloData([...await getData()]); //[...var] genera una nueva instancia de memoria, se previene asi la duplicidad de llaves más abajo
+      setArregloData([...await getData("/comidas/simple")]); //[...var] genera una nueva instancia de memoria, se previene asi la duplicidad de llaves más abajo
     };                                      // array.includes() puede ser otra solucion para este problema
     obtenerDatos();
   }, [useRoute().params]);

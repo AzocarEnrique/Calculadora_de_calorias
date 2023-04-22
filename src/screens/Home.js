@@ -6,7 +6,7 @@ import Footer from '../components/Footer';
 import { styles } from '../resources/styles';
 
 
-const Home = ({ navigation, route }) => {
+const Home = ({ navigation }) => {
 
   auth.onAuthStateChanged((user) =>{
     if(!user){

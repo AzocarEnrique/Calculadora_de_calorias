@@ -13,7 +13,7 @@ const Footer = () => {
             <Text style = {{color: "white"}}>Inicio</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.buttonFooter} onPress={() => {
-            navigation.navigate("Calculadora")
+            navigation.navigate("Calculadora", {cuenta: -1})
         }}>
             <Text style = {{color: "white"}}>Calculadora</Text>
         </TouchableOpacity>      

@@ -1,4 +1,4 @@
-import { collection, query, addDoc, onSnapshot, where, deleteDoc, doc, getDocs, updateDoc } from "firebase/firestore";
+import { collection, query, addDoc, onSnapshot, where, deleteDoc, doc, getDocs, updateDoc, getDoc } from "firebase/firestore";
 import { db, auth } from './../../firebase-config';
 import { Alert } from 'react-native';
 
@@ -54,8 +54,23 @@ export const guardarComida = (nombre, calorias, proteinas, carbohidratos, grasas
     }
 }
 
-export const getData = async () => {
-    const q =  query(collection(db,`${auth.currentUser.uid}/comidas/simple`));
+export const getData = async (ruta) => {
+    const q =  query(collection(db,`${auth.currentUser.uid}${ruta}`));
+    const data = await new Promise((resolve) => {
+        const r = [];
+        onSnapshot(q, (querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+            r.push(doc.data());
+          });
+          resolve(r);
+        });
+      });
+    
+    return data;
+}   
+
+export const copiagetData = async (ruta) => {
+    const q =  query(collection(db,`${auth.currentUser.uid}${ruta}`));
     const data = await new Promise((resolve) => {
         const r = [];
         onSnapshot(q, (querySnapshot) => {
@@ -107,4 +122,52 @@ export const editData = async (nombre,calorias,carbohidratos,proteinas,grasas) =
         "carbohidratos": carbohidratos,
         "grasas": grasas
     });
+}
+
+export const guardarCalData = async (nombre, numero) => {
+    const Usuarios = collection(db, auth.currentUser.uid);
+    const q =  query(collection(Usuarios, 'calculadora', 'datos'), where("nombre", "==", nombre))
+    const querySnapshot = await getDocs(q);
+    let data = undefined
+    if(!querySnapshot.empty){
+        data = await new Promise((resolve) => {
+            querySnapshot.forEach((doc) => {
+                resolve(doc.id);
+            });
+        })
+    }
+    if(data){
+        const documento = doc(db, auth.currentUser.uid, 'calculadora', 'datos', data)
+        const gramosAntiguos = await getDoc(documento)
+        await updateDoc(documento, {
+            "nombre": nombre,
+            "gramos": parseInt(numero)+parseInt(gramosAntiguos.data().gramos)
+        });
+    }
+    else{
+        addDoc(collection(Usuarios, 'calculadora', 'datos'), {
+            nombre: nombre,
+            gramos: numero
+        })
+    }  
+}
+
+
+export const arraysAsincronos = async (arregloData, arregloTotal) => {
+    //console.log(arregloTotal)
+    const data = await new Promise((resolve) => {
+        const arrayFiltrado = []
+        if(arregloData && arregloTotal){
+          arregloData.map((elemento)=>{
+            const calculado = arregloTotal.filter((element) => element.nombre === elemento.nombre)[0]
+            calculado.calorias = (calculado.calorias*elemento.gramos)/100;
+            calculado.carbohidratos = (calculado.carbohidratos*elemento.gramos)/100;
+            calculado.proteinas = (calculado.proteinas*elemento.gramos)/100;
+            calculado.grasas = (calculado.grasas*elemento.gramos)/100;
+            arrayFiltrado.push(calculado)
+          })
+          resolve(arrayFiltrado)
+        }
+    })
+    return data
 }

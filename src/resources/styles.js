@@ -105,5 +105,12 @@ export const styles = StyleSheet.create({
         borderRadius: 10,
         paddingLeft: 10,
         width: '50%'
+    },
+    botonLista: {
+        width: "30%",
+        borderRadius: 10,
+        alignItems: "center",
+        alignSelf: "center",
+        padding: '3%'
     }
 });
