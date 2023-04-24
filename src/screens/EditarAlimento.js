@@ -68,7 +68,7 @@ const EditarAlimento = ({ route, navigation }) => {
                 title='Editar' />
             <View style={{paddingBottom:'2%'}}></View>
             <Button onPress={async () => {
-                await delData(route.params.nombre)
+                await delData(route.params.nombre, 'comidas', 'simple')
                 aumento()
                 navigation.navigate("Inicio", { contador: i })
             }}

@@ -112,5 +112,12 @@ export const styles = StyleSheet.create({
         alignItems: "center",
         alignSelf: "center",
         padding: '3%'
+    },
+    botonLimite: {
+        borderRadius: 15,
+        alignItems: "center",
+        alignSelf: "center",
+        padding: '2%',
+        fontSize: 16
     }
 });

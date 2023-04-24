@@ -2,7 +2,6 @@ import { collection, query, addDoc, onSnapshot, where, deleteDoc, doc, getDocs, 
 import { db, auth } from './../../firebase-config';
 import { Alert } from 'react-native';
 
-
 export const AgregarUsuario = async (db, user_id) => {
     try {
         const Usuarios = collection(db, user_id);
@@ -28,8 +27,11 @@ export const AgregarUsuario = async (db, user_id) => {
                 carbohidratos: 13.81,
                 grasas: 0.17
             }),
+            addDoc(collection(Usuarios, 'calculadora', 'limite'), {
+                limite: 2500,
+                tipo: "menor",
+            })
         ]);
-        console.log("Documento escrito con ID: ", Usuarios.id);
     } catch (e) {
         console.error("Error agregando el documento: ", e);
     }
@@ -69,15 +71,15 @@ export const getData = async (ruta) => {
     return data;
 }
 
-export const delData = async (nombre) => {
-    const q = query(collection(db, `${auth.currentUser.uid}/comidas/simple`), where("nombre", "==", nombre));
+export const delData = async (nombre, path1, path2) => {
+    const q = query(collection(db, auth.currentUser.uid, path1, path2 ), where("nombre", "==", nombre));
     const querySnapshot = await getDocs(q);
     const data = await new Promise((resolve) => {
         querySnapshot.forEach((doc) => {
             resolve(doc.id);
         });
     })
-    await deleteDoc(doc(db, auth.currentUser.uid, "comidas", "simple", data));
+    await deleteDoc(doc(db, auth.currentUser.uid, path1, path2, data));
 }
 
 export const numero = (ev) => {
@@ -169,4 +171,23 @@ export const sumArrays = (arrays) => {
         }
     }
     return sums;
+}
+
+export const guardarLimite = async (limite, tipo) => {
+    const LimiteCol = collection(db, auth.currentUser.uid);
+    const q = query(collection(LimiteCol, 'calculadora', 'limite'))
+    const querySnapshot = await getDocs(q);
+    let data = undefined
+    if (!querySnapshot.empty) {
+        data = await new Promise((resolve) => {
+            querySnapshot.forEach((doc) => {
+                resolve(doc.id);
+            });
+        })
+    }
+    const documento = doc(db, auth.currentUser.uid, 'calculadora', 'limite', data)
+    await updateDoc(documento, {
+        "limite": limite,
+        "tipo": tipo
+    });
 }

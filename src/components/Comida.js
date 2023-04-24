@@ -22,7 +22,8 @@ const Comida = () => {
   
   return (
     <View style={{ flex: 1 }}>
-      {arregloData && arregloData?.map((element) => (
+      {arregloData && arregloData.length > 0 ? (
+      arregloData && arregloData?.map((element) => (
         <TouchableOpacity key={element.nombre} style={[styles.simpleButton, { flexDirection: 'row', justifyContent: 'space-between' }]} 
         onPress={() => {
             navigation.navigate("Editar Alimento", 
@@ -43,6 +44,7 @@ const Comida = () => {
           </View>
         </TouchableOpacity>
       ))
+      ) : (<Text style={{ color: "white", fontSize:36, paddingTop:'25%', textAlign:'center' }}>Cargando...</Text>)
       }
     </View>
   );

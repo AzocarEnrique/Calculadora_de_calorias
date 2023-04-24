@@ -10,10 +10,10 @@ const SignUp = ({ navigation }) => {
     const [contraseña, setContraseña] = useState('')
 
     const handleCreateAccount = (correo, contraseña) => {
-        createUserWithEmailAndPassword(auth, correo.correo, contraseña.contraseña).then((userCredential) => {
+        createUserWithEmailAndPassword(auth, correo.correo, contraseña.contraseña).then(async (userCredential) => {
             const user = userCredential.user;
-            AgregarUsuario(db, user.uid)
-            navigation.navigate("Inicio")
+            await AgregarUsuario(db, user.uid)
+            navigation.navigate("Inicio",  {contador: -1})
         }).catch(error => {
             Alert.alert('Error', error.message);
         })

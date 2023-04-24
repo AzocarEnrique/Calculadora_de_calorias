@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { TouchableOpacity, Button, TextInput, View, Text, Alert } from 'react-native';
-import { Entypo } from '@expo/vector-icons'
-import { signInWithEmailAndPassword } from 'firebase/auth'
+import {  Button, TextInput, View, Text, Alert } from 'react-native';
+import { signInWithEmailAndPassword} from 'firebase/auth'
 import { auth } from './../../firebase-config';
 import { styles } from '../resources/styles';
 
@@ -43,18 +42,12 @@ const Login = ({ navigation }) => {
             console.log("se logueo");
         }}
         />
-        <Text style={{paddingTop:20, color: '#FFFFFF', paddingBottom:10}}>
-            Inicia sesión tambien con:
+        <Text style={{paddingTop:20, color: '#FFFFFF'}}>
+          ¿No tienes cuenta?
         </Text>
-        <TouchableOpacity style={styles.google} onPress={() => {
-            console.log("lol");
-            navigation.navigate("Inicio")
-        }}>
-            <Text style={{fontSize:16, color:"white", alignItems: 'center'}}> <Entypo name="google-" size={24} color="white" /> Google </Text>
-        </TouchableOpacity>
-        <View style={{paddingBottom:10}}></View>
+        <View style={{paddingBottom:'1%'}}></View>
         <Button
-          title={'Crear Cuenta'}
+          title={'Registrate'}
           style={styles.input}
           onPress={()=>{
             console.log("va a crear cuenta");
