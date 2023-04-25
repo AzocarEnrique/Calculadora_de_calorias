@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Text, View, TextInput, TouchableOpacity, ScrollView} from 'react-native';
+import {Text, View, TextInput, TouchableOpacity, ScrollView, PixelRatio } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { styles } from '../resources/styles';
 import { guardarComida, numero} from '../resources/functions';
@@ -68,7 +68,7 @@ const NuevaComida = ({ navigation }) => {
           await aumento()
           navigation.navigate("Inicio", {contador: i});
           }}>
-          <Text style={{fontSize:16, color:"white"}}> Guardar <Feather name="save" size={18} color="white" /></Text>
+          <Text style={{fontSize: PixelRatio.getFontScale()*16, color:"white"}}> Guardar <Feather name="save" size={18} color="white" /></Text>
         </TouchableOpacity>
       </View>
     </ScrollView>

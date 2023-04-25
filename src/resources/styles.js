@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, PixelRatio } from 'react-native';
 
 export const styles = StyleSheet.create({
     container: {
@@ -18,7 +18,7 @@ export const styles = StyleSheet.create({
         backgroundColor: '#FFFFFF'
     },
     textoLogin: {
-        fontSize: 28,
+        fontSize: PixelRatio.getFontScale()*28,
         fontWeight: 'bold',
         color: '#ffffff',
         paddingBottom: 30
@@ -43,17 +43,17 @@ export const styles = StyleSheet.create({
         backgroundColor: 'tomato',
     },
     texto: {
-        fontSize: 35,
+        fontSize: PixelRatio.getFontScale()*35,
         color: "white"
     },
     button: {
-        marginTop: 5,
-        marginRight: 5,
+        marginTop: PixelRatio.getFontScale()*5,
+        marginRight: PixelRatio.getFontScale()*5,
         backgroundColor: '#6D6D6C',
         borderColor: '#313833',
-        padding: 10,
-        borderRadius: 5,
-        borderWidth: 1,
+        padding: PixelRatio.getFontScale()*10,
+        borderRadius: PixelRatio.getFontScale()*5,
+        borderWidth: PixelRatio.getFontScale()*1,
         borderRightWidth: 0,
         alignItems: 'center',
         justifyContent: 'center',
@@ -88,12 +88,12 @@ export const styles = StyleSheet.create({
         verticalAlign: "center"
     },
     textoComida: {
-        fontSize: 20,
+        fontSize: PixelRatio.getFontScale()*20,
         color: "white",
         textAlign: 'center'
     },
     tituloComida: {
-        fontSize: 26,
+        fontSize: PixelRatio.getFontScale()*26,
         color: "white",
         textAlign: 'center'
     },
@@ -107,17 +107,17 @@ export const styles = StyleSheet.create({
         width: '50%'
     },
     botonLista: {
-        width: "30%",
-        borderRadius: 10,
+        width: PixelRatio.getFontScale()*130,
+        borderRadius: PixelRatio.getFontScale()*10,
         alignItems: "center",
         alignSelf: "center",
-        padding: '3%'
+        padding: PixelRatio.getFontScale()*15
     },
     botonLimite: {
-        borderRadius: 15,
+        borderRadius: PixelRatio.getFontScale()*15,
         alignItems: "center",
         alignSelf: "center",
-        padding: '2%',
-        fontSize: 16
+        padding: PixelRatio.getFontScale()*10,
+        fontSize: PixelRatio.getFontScale()*16
     }
 });

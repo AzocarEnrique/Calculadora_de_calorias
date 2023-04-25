@@ -2,12 +2,12 @@
   "expo": {
     "name": "Calculadora_de_calorias",
     "slug": "Calculadora_de_calorias",
-    "version": "1.0.0",
+    "version": "2.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/Kike-Morandé.jpg",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/Kike-Morandé.jpg",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -19,12 +19,18 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/Kike-Morandé.jpg",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.enrique24_99.Calculadora_de_calorias"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "0eb44ec3-1c17-4ef0-8bd2-6a549954bcf2"
+      }
     }
   }
 }

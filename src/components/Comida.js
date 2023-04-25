@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { TouchableOpacity, Text, View } from 'react-native';
+import { TouchableOpacity, Text, View, PixelRatio } from 'react-native';
 import { styles } from '../resources/styles';
 import { getData } from '../resources/functions';
 import { Octicons } from '@expo/vector-icons';
@@ -33,18 +33,18 @@ const Comida = () => {
              proteinas: element.proteinas,
              grasas: element.grasas})
           }}>
-          <View style={{ paddingLeft: '10%', position: 'relative', bottom: '2.5%' }}>
-            <Text style={{ color: "white", fontSize: 20 }}>Nombre: {element.nombre}</Text>
+          <View style={{ paddingLeft: '2%', alignSelf:'flex-start' }}>
+            <Text style={{ color: "white", fontSize: PixelRatio.getFontScale()*20 }}>Nombre: {element.nombre}</Text>
             <Text style={{ color: "white" }}>Calorias: {element.calorias}</Text>
           </View>
-          <View style={{ alignItems: 'flex-end', paddingRight: '5%' }}>
-            <Text style={{ color: "white" }}>Carbohidratos: {element.carbohidratos} <Octicons name="dot-fill" size={14} color="orange" /></Text>
-            <Text style={{ color: "white" }}>Proteinas: {element.proteinas} <Octicons name="dot-fill" size={14} color="crimson" /></Text>
-            <Text style={{ color: "white" }}>Grasas: {element.grasas} <Octicons name="dot-fill" size={14} color="yellow" /></Text>
+          <View style={{ alignItems: 'flex-end', paddingRight: '2%' }}>
+            <Text style={{ color: "white" }}>Carbohidratos: {element.carbohidratos} <Octicons name="dot-fill" size={PixelRatio.getFontScale()*14} color="orange" /></Text>
+            <Text style={{ color: "white" }}>Proteinas: {element.proteinas} <Octicons name="dot-fill" size={PixelRatio.getFontScale()*14} color="crimson" /></Text>
+            <Text style={{ color: "white" }}>Grasas: {element.grasas} <Octicons name="dot-fill" size={PixelRatio.getFontScale()*14} color="yellow" /></Text>
           </View>
         </TouchableOpacity>
       ))
-      ) : (<Text style={{ color: "white", fontSize:36, paddingTop:'25%', textAlign:'center' }}>Cargando...</Text>)
+      ) : (<Text style={{ color: "white", fontSize: PixelRatio.getFontScale()*36, paddingTop:'25%', textAlign:'center' }}>Cargando...</Text>)
       }
     </View>
   );

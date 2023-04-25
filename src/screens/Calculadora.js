@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { TouchableOpacity, Text, ScrollView, View } from 'react-native';
+import { TouchableOpacity, Text, ScrollView, View, PixelRatio  } from 'react-native';
 import Footer from '../components/Footer';
 import { styles } from '../resources/styles';
 import { arraysAsincronos, getData, sumArrays, delData } from '../resources/functions';
@@ -47,28 +47,28 @@ const Calculadora = ({ navigation, route }) => {
             </TouchableOpacity>
           </View>
         ))
-        ):(  <Text style={{ color: "white", fontSize: 24, textAlign:'center', paddingTop:'25%', fontWeight:'bold' }}> Sin datos hasta el momento... </Text>)
+        ):(  <Text style={{ color: "white", fontSize:  PixelRatio.getFontScale()*24, textAlign:'center', paddingTop:'25%', fontWeight:'bold' }}> Sin datos hasta el momento... </Text>)
         }
       </ScrollView>
       { limite && temp && arregloData.length > 0 ? (
         limite[0].tipo == "mayor" ? (
           <View>
-            <Text style={{ color: parseInt(limite[0].limite) < parseInt(temp.calorias) ? "#90ee90" : "#ffcccb", alignSelf: 'center', fontSize: 20, fontWeight: 'bold' }}>CALORIAS TOTALES: {temp.calorias?.toFixed(2)}</Text>
-            <Text style={{ color: "white", alignSelf: 'center', fontSize: 16 }}>Carbohidratos totales: {temp.carbohidratos?.toFixed(2)}</Text>
-            <Text style={{ color: "white", alignSelf: 'center', fontSize: 16 }}>Proteinas totales: {temp.proteinas?.toFixed(2)}</Text>
-            <Text style={{ color: "white", alignSelf: 'center', fontSize: 16 }}>Grasas totales: {temp.grasas?.toFixed(2)}</Text>
+            <Text style={{ color: parseInt(limite[0].limite) < parseInt(temp.calorias) ? "#90ee90" : "#ffcccb", alignSelf: 'center', fontSize:  PixelRatio.getFontScale()*20, fontWeight: 'bold' }}>CALORIAS TOTALES: {temp.calorias?.toFixed(2)}</Text>
+            <Text style={{ color: "white", alignSelf: 'center', fontSize:  PixelRatio.getFontScale()*16 }}>Carbohidratos totales: {temp.carbohidratos?.toFixed(2)}</Text>
+            <Text style={{ color: "white", alignSelf: 'center', fontSize:  PixelRatio.getFontScale()*16 }}>Proteinas totales: {temp.proteinas?.toFixed(2)}</Text>
+            <Text style={{ color: "white", alignSelf: 'center', fontSize:  PixelRatio.getFontScale()*16 }}>Grasas totales: {temp.grasas?.toFixed(2)}</Text>
           </View>
           ): (
               <View>
-                <Text style={{ color: parseInt(limite[0].limite) > parseInt(temp.calorias) ? "#90ee90" : "#ffcccb", alignSelf: 'center', fontSize: 20, fontWeight: 'bold' }}>CALORIAS TOTALES: {temp.calorias?.toFixed(2)}</Text>
-                <Text style={{ color: "white", alignSelf: 'center', fontSize: 16 }}>Carbohidratos totales: {temp.carbohidratos?.toFixed(2)}</Text>
-                <Text style={{ color: "white", alignSelf: 'center', fontSize: 16 }}>Proteinas totales: {temp.proteinas?.toFixed(2)}</Text>
-                <Text style={{ color: "white", alignSelf: 'center', fontSize: 16 }}>Grasas totales: {temp.grasas?.toFixed(2)}</Text>
+                <Text style={{ color: parseInt(limite[0].limite) > parseInt(temp.calorias) ? "#90ee90" : "#ffcccb", alignSelf: 'center', fontSize:  PixelRatio.getFontScale()*20, fontWeight: 'bold' }}>CALORIAS TOTALES: {temp.calorias?.toFixed(2)}</Text>
+                <Text style={{ color: "white", alignSelf: 'center', fontSize:  PixelRatio.getFontScale()*16 }}>Carbohidratos totales: {temp.carbohidratos?.toFixed(2)}</Text>
+                <Text style={{ color: "white", alignSelf: 'center', fontSize:  PixelRatio.getFontScale()*16 }}>Proteinas totales: {temp.proteinas?.toFixed(2)}</Text>
+                <Text style={{ color: "white", alignSelf: 'center', fontSize:  PixelRatio.getFontScale()*16 }}>Grasas totales: {temp.grasas?.toFixed(2)}</Text>
               </View>
               )
           ) : (
             <View>
-              <Text style={{ color: "white", alignSelf: 'center', fontSize: 16, paddingBottom:'10%' }}>
+              <Text style={{ color: "white", alignSelf: 'center', fontSize:  PixelRatio.getFontScale()*16, paddingBottom:'10%' }}>
                 Agregue datos pulsando el botón circular rojo
               </Text>
             </View>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Modal, TouchableOpacity, Text, ScrollView, View, TextInput, KeyboardAvoidingView } from 'react-native';
+import { Modal, TouchableOpacity, Text, ScrollView, View, TextInput, KeyboardAvoidingView, PixelRatio } from 'react-native';
 import Footer from '../components/Footer';
 import { styles } from '../resources/styles';
 import { Feather, MaterialCommunityIcons } from '@expo/vector-icons';
@@ -35,7 +35,7 @@ const ListaAlimentos = ({ navigation }) => {
             </ScrollView>
             <Modal animationType="fade" visible={modalVisible} >
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#57595d' }}>
-                    <Text style = {{fontSize: 60, fontWeight:'bold', color:'#fff'}}>{nombreSelect}</Text>
+                    <Text style = {{fontSize:  PixelRatio.getFontScale()* 60, fontWeight:'bold', color:'#fff'}}>{nombreSelect}</Text>
                     <TextInput style={[styles.inputTexto, { alignSelf: 'center', textAlign:'center' }]} keyboardType='numeric' onChangeText={(ev) => {
                         setCantidad(ev)
                     }}
@@ -43,15 +43,17 @@ const ListaAlimentos = ({ navigation }) => {
                         placeholderTextColor="#96979A"
                     />
                     <View style={{flexDirection: 'row', marginTop: '2%'}}>
-                        <TouchableOpacity style={[styles.botonLista, {backgroundColor:'crimson', marginRight:'1%'}]} onPress={() => {setModalVisible(false)} }>
-                            <Text style={{ fontSize: 16, color: "white" }}> Cancelar <MaterialCommunityIcons name="cancel" size={18} color="white" /></Text>
+                        <TouchableOpacity style={[styles.botonLista, {backgroundColor:'crimson', marginRight:'1%', flexDirection:'row', justifyContent:'space-between'}]} onPress={() => {setModalVisible(false)} }>
+                            <Text style={{ fontSize:  PixelRatio.getFontScale()* 18, color: "white" }}>Cancelar </Text>
+                            <MaterialCommunityIcons name="cancel" size={PixelRatio.getFontScale()*22} color="white" />
                         </TouchableOpacity>
-                        <TouchableOpacity style={[styles.botonLista, {backgroundColor:'green', marginLeft:'1%'}]} onPress={async() => { 
+                        <TouchableOpacity style={[styles.botonLista, {backgroundColor:'green', marginLeft:'1%', flexDirection:'row', justifyContent:'space-between'}]} onPress={async() => { 
                             await guardarCalData(nombreSelect, cantidad)
                             i+=1
                             navigation.navigate("Calculadora", {cuenta: i})
                             }}>
-                            <Text style={{ fontSize: 16, color: "white" }}> Guardar <Feather name="save" size={18} color="white" /></Text>
+                            <Text style={{ fontSize:  PixelRatio.getFontScale()* 18, color: "white" }}>Guardar </Text>
+                            <Feather name="save" size={PixelRatio.getFontScale()*22} color="white" />
                         </TouchableOpacity>
                     </View>
                 </View>
