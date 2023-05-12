@@ -36,7 +36,8 @@ const ListaAlimentos = ({ navigation }) => {
             <Modal animationType="fade" visible={modalVisible} >
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#57595d' }}>
                     <Text style = {{fontSize:  PixelRatio.getFontScale()* 60, fontWeight:'bold', color:'#fff'}}>{nombreSelect}</Text>
-                    <TextInput style={[styles.inputTexto, { alignSelf: 'center', textAlign:'center' }]} keyboardType='numeric' onChangeText={(ev) => {
+                    <TextInput style={[styles.inputTexto, { borderWidth:1, borderColor:'#2b2d31', alignSelf: 'center', textAlign:'center', padding:PixelRatio.getFontScale()* 5 }]} 
+                    keyboardType='numeric' onChangeText={(ev) => {
                         setCantidad(ev)
                     }}
                         placeholder="Peso en gramos"

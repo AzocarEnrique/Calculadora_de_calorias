@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { TouchableOpacity, Text, ScrollView, View, PixelRatio  } from 'react-native';
 import Footer from '../components/Footer';
 import { styles } from '../resources/styles';
-import { arraysAsincronos, getData, sumArrays, delData } from '../resources/functions';
-import { Entypo } from '@expo/vector-icons';
+import { arraysAsincronos, getData, sumArrays, delData, deleteAll } from '../resources/functions';
+import { Entypo, AntDesign } from '@expo/vector-icons';
 
 const Calculadora = ({ navigation, route }) => {
 
@@ -74,13 +74,24 @@ const Calculadora = ({ navigation, route }) => {
             </View>
           )
       }
-      <TouchableOpacity
-        onPress={() => {
-          navigation.navigate("Agregar Alimento")
-        }}
-        style={styles.roundButton1}>
-        <Text style={styles.texto}>+</Text>
-      </TouchableOpacity>
+      <View style={{flexDirection:'row',marginTop:'5%', marginBottom:'5%', justifyContent:'space-around'}}>
+        <View style={{width:'18%'}}></View>
+        <TouchableOpacity style={[styles.botonLista, { backgroundColor: 'crimson', marginRight: '1%', flexDirection:'row', justifyContent:'space-between' }]} 
+          onPress={async() => { 
+            await deleteAll('calculadora','datos')
+            setDelContador(delContador+1)
+           }}>
+          <Text style={{ fontSize:  PixelRatio.getFontScale()* 18, color: "white" }}>Eliminar</Text>
+          <AntDesign name="delete" size={PixelRatio.getFontScale()*22} color="white" />
+        </TouchableOpacity>
+        <TouchableOpacity 
+          onPress={() => {
+            navigation.navigate("Agregar Alimento")
+          }}
+          style={styles.roundButton2}>
+          <Text style={styles.texto}>+</Text>
+        </TouchableOpacity>
+      </View>
       <Footer />
     </View>
   );

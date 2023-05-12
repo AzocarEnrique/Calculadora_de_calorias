@@ -25,7 +25,7 @@ const Limite = ({ navigation }) => {
       <ScrollView>
         {arregloData && arregloData.length > 0 ? (
           <View style={{ paddingTop: '35%' }}>
-            <Card containerStyle={{ backgroundColor: '#2b2d31', padding: 0, width: '75%', borderColor: 'black', alignSelf: 'center' }}>
+            <Card containerStyle={{ backgroundColor: '#2b2d31', padding: 0, width: '75%', borderColor: 'black', alignSelf: 'center', borderWidth: 4 }}>
               <Text style={{ color: "white", fontSize:  PixelRatio.getFontScale()* 26, textAlign: 'center', textAlignVertical: 'center', fontWeight: 'bold' }}>
                 {"Tu meta calorica es " + arregloData[0].tipo + " a:"}
               </Text>
@@ -50,7 +50,7 @@ const Limite = ({ navigation }) => {
       <Modal animationType="fade" visible={modalVisible} >
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#57595d' }}>
           <Text style={{ fontSize:  PixelRatio.getFontScale()* 60, fontWeight: 'bold', color: '#fff', marginBottom:'10%' }}>Tu nuevo limite es:</Text>
-          <View style={{flexDirection: 'row', justifyContent:'space-evenly'}}>
+          <View style={{flexDirection: 'row', justifyContent:'space-evenly', marginBottom: '5%'}}>
             <TouchableOpacity style={[styles.botonLimite, { backgroundColor: colorBoton === 1 ? '#007AFF' : '#2b2d31', marginRight:'1%'}]} 
               onPress={() => {
                 setColorBoton(1)
@@ -64,13 +64,14 @@ const Limite = ({ navigation }) => {
                 <Text style={{ fontSize:  PixelRatio.getFontScale()* 16, color: "white" }}>Mayor que</Text>
             </TouchableOpacity>
           </View>
-          <TextInput style={[styles.inputTexto, { alignSelf: 'center', textAlign: 'center' , marginBottom:'15%', fontSize:  PixelRatio.getFontScale()* 22, padding:PixelRatio.getFontScale()*5}]} keyboardType='numeric' onChangeText={(ev) => {
+          <TextInput style={[styles.inputTexto, { borderWidth:1, alignSelf: 'center', textAlign: 'center' , marginBottom:'10%', fontSize:  PixelRatio.getFontScale()* 22, padding:PixelRatio.getFontScale()*5}]} 
+          keyboardType='numeric' onChangeText={(ev) => {
             setNumeroCal(ev)
           }}
             placeholder="Kcal a alcanzar"
             placeholderTextColor="#96979A"
           />
-          <View style={{ flexDirection: 'row', marginTop: '2%' }}>
+          <View style={{ flexDirection: 'row', marginTop: '1%' }}>
             <TouchableOpacity style={[styles.botonLista, { backgroundColor: 'crimson', marginRight: '1%', flexDirection:'row', justifyContent:'space-between' }]} 
               onPress={() => { setModalVisible(false) }}>
               <Text style={{ fontSize:  PixelRatio.getFontScale()* 18, color: "white" }}>Cancelar </Text>

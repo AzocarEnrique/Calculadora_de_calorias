@@ -10,7 +10,7 @@ const SignUp = ({ navigation }) => {
     const [contraseña, setContraseña] = useState('')
 
     const handleCreateAccount = (correo, contraseña) => {
-        createUserWithEmailAndPassword(auth, correo.correo, contraseña.contraseña).then(async (userCredential) => {
+        createUserWithEmailAndPassword(auth, correo, contraseña).then(async (userCredential) => {
             const user = userCredential.user;
             await AgregarUsuario(db, user.uid)
             navigation.navigate("Inicio",  {contador: -1})
@@ -24,12 +24,12 @@ const SignUp = ({ navigation }) => {
             Crear cuenta
         </Text>
         <TextInput
-          onChangeText={(correo) => setCorreo({ correo })}
+          onChangeText={(correo) => setCorreo(correo.replace(/\s/g, ''))}
           placeholder={'Correo'}
           style={styles.input}
         />
         <TextInput
-          onChangeText={(contraseña) => setContraseña({ contraseña })}
+          onChangeText={(contraseña) => setContraseña(contraseña.replace(/\s/g, ''))}
           placeholder={'Contraseña'}
           secureTextEntry={true}
           style={styles.input}

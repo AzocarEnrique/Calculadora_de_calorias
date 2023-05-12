@@ -4,10 +4,10 @@
     "slug": "Calculadora_de_calorias",
     "version": "2.0.0",
     "orientation": "portrait",
-    "icon": "./assets/Kike-Morandé.jpg",
+    "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/Kike-Morandé.jpg",
+      "image": "./assets/icon.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -19,7 +19,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/Kike-Morandé.jpg",
+        "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#ffffff"
       },
       "package": "com.enrique24_99.Calculadora_de_calorias"

@@ -42,6 +42,15 @@ export const styles = StyleSheet.create({
         borderRadius: 100,
         backgroundColor: 'tomato',
     },
+    roundButton2: {
+        marginBottom: '2%',
+        width: 75,
+        height: 75,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 100,
+        backgroundColor: 'tomato'
+    },
     texto: {
         fontSize: PixelRatio.getFontScale()*35,
         color: "white"
@@ -111,13 +120,14 @@ export const styles = StyleSheet.create({
         borderRadius: PixelRatio.getFontScale()*10,
         alignItems: "center",
         alignSelf: "center",
-        padding: PixelRatio.getFontScale()*15
+        padding: PixelRatio.getFontScale()*12
     },
     botonLimite: {
         borderRadius: PixelRatio.getFontScale()*15,
         alignItems: "center",
         alignSelf: "center",
         padding: PixelRatio.getFontScale()*10,
-        fontSize: PixelRatio.getFontScale()*16
+        fontSize: PixelRatio.getFontScale()*16,
+        borderWidth:1, borderBottomWidth:4,
     }
 });

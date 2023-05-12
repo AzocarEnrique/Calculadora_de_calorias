@@ -9,7 +9,7 @@ const Login = ({ navigation }) => {
     const [contraseña, setContraseña] = useState('')
 
     const handleLoginAccount = () =>{
-      signInWithEmailAndPassword(auth, correo.correo, contraseña.contraseña).then((userCredential)=>{
+      signInWithEmailAndPassword(auth, correo, contraseña).then((userCredential)=>{
           const user = userCredential.user;
           console.log(user);
           navigation.navigate("Inicio")
@@ -23,12 +23,12 @@ const Login = ({ navigation }) => {
             Calculadora de Calorias
         </Text>
         <TextInput
-          onChangeText={(correo) => setCorreo({ correo })}
+          onChangeText={(correo) => setCorreo(correo.replace(/\s/g, ''))}
           placeholder={'Correo'}
           style={styles.input}
         />
         <TextInput
-          onChangeText={(contraseña) => setContraseña({ contraseña })}
+          onChangeText={(contraseña) => setContraseña(contraseña.replace(/\s/g, ''))}
           placeholder={'Contraseña'}
           secureTextEntry={true}
           style={styles.input}
@@ -39,7 +39,7 @@ const Login = ({ navigation }) => {
           style={styles.input}
           onPress={()=>{
             handleLoginAccount();
-            console.log("se logueo");
+            console.log(correo, contraseña);
         }}
         />
         <Text style={{paddingTop:20, color: '#FFFFFF'}}>

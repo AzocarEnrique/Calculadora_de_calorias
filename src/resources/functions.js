@@ -191,3 +191,17 @@ export const guardarLimite = async (limite, tipo) => {
         "tipo": tipo
     });
 }
+
+export const deleteAll = async (col1, col2) => {
+    const q = query(collection(db, auth.currentUser.uid, col1, col2));
+    const querySnapshot = await getDocs(q);
+    const deletePromises = querySnapshot.docs.map(async (doc) => {
+        try {
+            await deleteDoc(doc.ref);
+        } catch (error) {
+            console.log(error);
+        }
+    });
+    await Promise.all(deletePromises);
+    console.log("datos eliminados");
+};
