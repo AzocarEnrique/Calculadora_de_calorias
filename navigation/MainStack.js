@@ -28,6 +28,9 @@ const MainStack = () => {
                 <Stack.Screen 
                     name="Iniciar Sesión"
                     component={ Login }
+                    options={{
+                        headerBackVisible: false
+                    }}
                 />
                 <Stack.Screen 
                     name="Crear Cuenta"

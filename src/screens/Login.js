@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import {  Button, TextInput, View, Text, Alert } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import {  Button, TextInput, View, Text, Alert, BackHandler } from 'react-native';
 import { signInWithEmailAndPassword} from 'firebase/auth'
 import { auth } from './../../firebase-config';
 import { styles } from '../resources/styles';
@@ -7,7 +7,13 @@ import { styles } from '../resources/styles';
 const Login = ({ navigation }) => {
     const [correo, setCorreo] = useState('')
     const [contraseña, setContraseña] = useState('')
-
+    useEffect(() => {
+      const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+        return true; 
+      });
+  
+      return () => backHandler.remove(); 
+    }, []);
     const handleLoginAccount = () =>{
       signInWithEmailAndPassword(auth, correo, contraseña).then((userCredential)=>{
           const user = userCredential.user;
