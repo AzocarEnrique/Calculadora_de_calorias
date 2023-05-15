@@ -113,7 +113,7 @@ export const styles = StyleSheet.create({
         color: "#fff",
         borderRadius: 10,
         paddingLeft: 10,
-        width: '50%'
+        width: '55%'
     },
     botonLista: {
         width: PixelRatio.getFontScale()*130,

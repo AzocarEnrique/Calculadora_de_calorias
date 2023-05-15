@@ -1,6 +1,7 @@
 import { collection, query, addDoc, onSnapshot, where, deleteDoc, doc, getDocs, updateDoc, getDoc } from "firebase/firestore";
 import { db, auth } from './../../firebase-config';
 import { Alert } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const AgregarUsuario = async (db, user_id) => {
     try {
@@ -205,3 +206,15 @@ export const deleteAll = async (col1, col2) => {
     await Promise.all(deletePromises);
     console.log("datos eliminados");
 };
+
+
+
+export const storeSessionData = async (userSession, PassSession) => {
+    try {
+      await AsyncStorage.setItem('user', userSession);
+      await AsyncStorage.setItem('pass', PassSession);
+      console.log(await AsyncStorage.getItem('user'), await AsyncStorage.getItem('pass'));
+    } catch (error) {
+      console.log(error)
+    }
+  };

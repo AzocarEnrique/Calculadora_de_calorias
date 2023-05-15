@@ -3,17 +3,41 @@ import {  Button, TextInput, View, Text, Alert, BackHandler } from 'react-native
 import { signInWithEmailAndPassword} from 'firebase/auth'
 import { auth } from './../../firebase-config';
 import { styles } from '../resources/styles';
+import { storeSessionData } from '../resources/functions';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Login = ({ navigation }) => {
     const [correo, setCorreo] = useState('')
     const [contraseña, setContraseña] = useState('')
+    
     useEffect(() => {
       const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
         return true; 
       });
   
-      return () => backHandler.remove(); 
+      return async() => backHandler.remove(); 
     }, []);
+
+    const checkUserAndSignIn = async () => {
+      const user = await AsyncStorage.getItem('user');
+      const pass = await AsyncStorage.getItem('pass');
+    
+      if (user) {
+        signInWithEmailAndPassword(auth, user, pass)
+          .then((userCredential) => {
+            const user = userCredential.user;
+            console.log(user);
+            navigation.navigate("Inicio");
+          })
+          .catch((error) => {
+            Alert.alert('Error', error.message);
+          });
+      }
+    };
+    
+    // Call the checkUserAndSignIn function when necessary
+    checkUserAndSignIn();
+
     const handleLoginAccount = () =>{
       signInWithEmailAndPassword(auth, correo, contraseña).then((userCredential)=>{
           const user = userCredential.user;
@@ -22,7 +46,7 @@ const Login = ({ navigation }) => {
       }).catch(error =>{
         Alert.alert('Error', error.message);
       })
-  }
+    }
     return (
       <View style={styles.container}>
         <Text style={styles.textoLogin}>
@@ -43,9 +67,9 @@ const Login = ({ navigation }) => {
         <Button
           title={'Login'}
           style={styles.input}
-          onPress={()=>{
+          onPress={async ()=>{
+            await storeSessionData(correo, contraseña)
             handleLoginAccount();
-            console.log(correo, contraseña);
         }}
         />
         <Text style={{paddingTop:20, color: '#FFFFFF'}}>

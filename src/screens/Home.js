@@ -4,7 +4,7 @@ import Comidas from '../components/Comidas';
 import { auth } from './../../firebase-config';
 import Footer from '../components/Footer';
 import { styles } from '../resources/styles';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Home = ({ navigation }) => {
 
@@ -22,12 +22,14 @@ const Home = ({ navigation }) => {
           <Text style={{color:'white', fontSize: PixelRatio.getFontScale()*12, textAlign:'center'}}>(Información nutricional en 100g.)</Text>
         </View>
         <View style={{justifyContent:'center', marginRight:PixelRatio.getFontScale()*10}}>
-          <TouchableOpacity style={styles.button} onPress={() => {
-                auth.signOut().then(() => {
-                  console.log("se deslogueo");
-                }).catch(error =>{
-                  Alert.alert('Error', error.message);
-                });
+          <TouchableOpacity style={styles.button} onPress={async () => {
+              await AsyncStorage.removeItem('user');
+              await AsyncStorage.removeItem('pass');
+              auth.signOut().then(() => {
+                console.log("se deslogueo");
+              }).catch(error =>{
+                Alert.alert('Error', error.message);
+              });
             }}>
                 <Text style = {{color: "white"}}>Logout</Text>
           </TouchableOpacity> 
